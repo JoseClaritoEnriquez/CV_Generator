@@ -12,6 +12,7 @@ export default function BasicInfo() {
     }
 
 
+
     return (
         <div className="form-section">
             <h2> Basic Information </h2>
@@ -26,10 +27,10 @@ export default function BasicInfo() {
                         onChange={(e) => setBasicInfo({ ...basicInfo, email: e.target.value })} />
                 </label>
                 <label>phone:
-                    <input type="tel" value={basicInfo.phone}
+                    <input type="phone" value={basicInfo.phone}
                         onChange={(e) => setBasicInfo({ ...basicInfo, phone: e.target.value })} />
                 </label>
-                <button type="submit">Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
         </div >
     );
