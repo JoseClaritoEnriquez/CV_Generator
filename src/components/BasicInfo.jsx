@@ -1,36 +1,44 @@
 import { useState } from 'react';
 
-export default function BasicInfo() {
-    const [basicInfo, setBasicInfo] = useState({
+export default function BasicInfo({ onSubmitInfo }) {
+
+
+    const [localInfo, setLocalInfo] = useState({
         name: '',
         email: '',
         phone: '',
     });
+
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitted data:', basicInfo);
+        onSubmitInfo(localInfo);
     }
-
 
 
     return (
         <div className="form-section">
-            <h2> Basic Information </h2>
             <form onSubmit={handleSubmit}>
+
+                <h2> Basic Information </h2>
                 <label>Name:
-                    <input type="text" value={basicInfo.name}
-                        onChange={(e) => setBasicInfo({ ...basicInfo, name: e.target.value })} />
+                    <input type="text"
+                        value={localInfo.name}
+                        onChange={(e) => setLocalInfo({ ...localInfo, name: e.target.value })} />
                 </label>
 
                 <label>Email:
-                    <input type="email" value={basicInfo.email}
-                        onChange={(e) => setBasicInfo({ ...basicInfo, email: e.target.value })} />
+                    <input type="email"
+                        value={localInfo.email}
+                        onChange={(e) => setLocalInfo({ ...localInfo, email: e.target.value })} />
                 </label>
+
                 <label>phone:
-                    <input type="phone" value={basicInfo.phone}
-                        onChange={(e) => setBasicInfo({ ...basicInfo, phone: e.target.value })} />
+                    <input type="tel"
+                        value={localInfo.phone}
+                        onChange={(e) => setLocalInfo({ ...localInfo, phone: e.target.value })}
+                    />
                 </label>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
+                <button type="submit">Submit</button>
             </form>
         </div >
     );

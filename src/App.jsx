@@ -6,6 +6,15 @@ import ExpInfo from './components/ExpInfo';
 
 
 function App() {
+
+  const [basicInfo, setBasicInfo] = useState({ name: '', email: '', phone: '' });
+
+  function handleBasicSubmit(savedData) {
+    setBasicInfo(savedData);
+    console.log('Saved Basic Info in App:', savedData);
+
+  }
+
   const [educations, setEducations] = useState([
     { id: crypto.randomUUID(), schoolName: '', description: '', startDate: '', endDate: '' }
   ]);
@@ -30,12 +39,40 @@ function App() {
   }
 
 
+  const [experiences, setExperiences] = useState([
+    { id: crypto.randomUUID(), expName: '', title: '', description: '', startDate: '', endDate: '', }
+  ]);
+
+  function handleAddExperience() {
+    console.log('Add Experience button clicked! Current count:',
+      experiences.length + 1);
+    setExperiences([
+      ...experiences,
+      { id: crypto.randomUUID(), schoolName: '', description: '', startDate: '', endDate: '' }
+    ]);
+  }
+  function handleSubmitExperience(e) {
+    e.preventDefault();
+    console.log('Submitted experiences List:', experiences);
+  }
+
+  function handleExperienceChange(id, field, value) {
+    setExperiences(experiences.map((item) =>
+      item.id === id ? { ...item, [field]: value } : item
+    ));
+  }
+
+
+
+
   return (
     <main className='app-container'>
       <header>
         <h1>CV Generator</h1>
       </header>
-      <BasicInfo />
+      <h2> Basic Info </h2>
+      <BasicInfo onSubmitInfo={handleBasicSubmit} />
+
       <h2> Education  </h2>
 
       <form onSubmit={handleSubmitEducation}>
@@ -56,8 +93,26 @@ function App() {
         </button>
       </form>
 
-      <ExpInfo />
 
+      <h2> Experiences  </h2>
+
+      <form onSubmit={handleSubmitExperience}>
+
+        {experiences.map((item) => (
+          <ExpInfo key={item.id} data={item}
+            onChange={handleExperienceChange}
+            onAdd={handleAddExperience} />
+
+        ))}
+
+        <button type="button" onClick={handleAddExperience}>
+          Add Experience
+        </button>
+
+        <button type="button" onClick={handleSubmitExperience}>
+          Submit
+        </button>
+      </form>
 
     </main>
   )
