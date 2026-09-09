@@ -40,6 +40,11 @@ function App() {
     ));
   }
 
+  function handleDeleteEducation(id) {
+    setEducations(educations.filter((item) => item.id !== id));
+    setSubmittedEducations(submittedEducations.filter((item) => item.id !== id));
+  }
+
   // Draft state for Experience form inputs
   const [experiences, setExperiences] = useState([
     { id: crypto.randomUUID(), expName: '', title: '', description: '', startDate: '', endDate: '' }
@@ -66,6 +71,12 @@ function App() {
     ));
   }
 
+  function handleDeleteExperience(id) {
+    setExperiences(experiences.filter((item) => item.id !== id));
+    setSubmittedExperiences(submittedExperiences.filter((item) => item.id !== id));
+  }
+
+
   return (
     <main className='app'>
       <header>
@@ -85,16 +96,18 @@ function App() {
             {educations.map((item) => (
               <EducInfo key={item.id} data={item}
                 onChange={handleEducationChange}
-                onAdd={handleAddEducation} />
+                onDelete={handleDeleteEducation} />
             ))}
 
-            <button type="button" onClick={handleAddEducation}>
-              Add Education
-            </button>
+            <div className="button-group">
+              <button type="button" onClick={handleAddEducation}>
+                + Add Education
+              </button>
 
-            <button type="submit">
-              Submit Education
-            </button>
+              <button type="submit">
+                Submit Education
+              </button>
+            </div>
           </form>
 
 
@@ -105,18 +118,22 @@ function App() {
             {experiences.map((item) => (
               <ExpInfo key={item.id} data={item}
                 onChange={handleExperienceChange}
-                onAdd={handleAddExperience} />
+                onDelete={handleDeleteExperience} />
             ))}
 
-            <button type="button" onClick={handleAddExperience}>
-              Add Experience
-            </button>
+            <div className="button-group">
+              <button type="button" onClick={handleAddExperience}>
+                + Add Experience
+              </button>
 
-            <button type="submit">
-              Submit Experience
-            </button>
+              <button type="submit">
+                Submit Experience
+              </button>
+            </div>
           </form>
+
         </div>
+
 
         <div className="preview-column">
           <CVPreview

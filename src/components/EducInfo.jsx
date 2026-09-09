@@ -3,6 +3,11 @@ import { useState } from 'react';
 export default function EducInfo({ data, onChange, onDelete }) {
     return (
         <div className="form-section">
+            {onDelete && (
+                <button type="button" className="delete-btn" onClick={() => onDelete(data.id)}>
+                    Remove
+                </button>
+            )}
 
             <label>Instituion Name:
                 <input type="text" value={data.schoolName}
@@ -24,11 +29,6 @@ export default function EducInfo({ data, onChange, onDelete }) {
                 <input type="date" value={data.endDate}
                     onChange={(e) => onChange(data.id, 'endDate', e.target.value)} />
             </label>
-            {onDelete && (
-                <button type="button" className="delete-btn" onClick={() => onDelete(data.id)}>
-                    Remove
-                </button>
-            )}
         </div>
     );
 }

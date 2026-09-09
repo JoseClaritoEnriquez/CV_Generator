@@ -1,8 +1,13 @@
 import { useState } from 'react';
 
-export default function ExpInfo({ data, onChange }) {
+export default function ExpInfo({ data, onChange, onDelete }) {
     return (
         <div className="form-section">
+            {onDelete && (
+                <button type="button" className="delete-btn" onClick={() => onDelete(data.id)}>
+                    Remove
+                </button>
+            )}
 
             <label>Organization:
                 <input type="text"
@@ -33,11 +38,7 @@ export default function ExpInfo({ data, onChange }) {
                 <input type="text"
                     value={data.description}
                     onChange={(e) => onChange(data.id, 'description', e.target.value)} />
-
-                {/* lets turn this into an actual text area later */}
             </label>
-
-
-        </div >
+        </div>
     );
 }
