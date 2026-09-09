@@ -1,9 +1,6 @@
 import { useState } from 'react';
 
-export default function EducInfo({ data, onChange }) {
-
-
-
+export default function EducInfo({ data, onChange, onDelete }) {
     return (
         <div className="form-section">
 
@@ -27,6 +24,11 @@ export default function EducInfo({ data, onChange }) {
                 <input type="date" value={data.endDate}
                     onChange={(e) => onChange(data.id, 'endDate', e.target.value)} />
             </label>
-        </div >
+            {onDelete && (
+                <button type="button" className="delete-btn" onClick={() => onDelete(data.id)}>
+                    Remove
+                </button>
+            )}
+        </div>
     );
 }
