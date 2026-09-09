@@ -3,7 +3,7 @@ import './styles/App.css'
 import BasicInfo from './components/BasicInfo';
 import EducInfo from './components/EducInfo'
 import ExpInfo from './components/ExpInfo';
-
+import CVPreview from './components/CVPreview';
 
 function App() {
 
@@ -38,7 +38,6 @@ function App() {
     ));
   }
 
-
   const [experiences, setExperiences] = useState([
     { id: crypto.randomUUID(), expName: '', title: '', description: '', startDate: '', endDate: '', }
   ]);
@@ -70,49 +69,59 @@ function App() {
       <header>
         <h1>CV Generator</h1>
       </header>
-      <h2> Basic Info </h2>
-      <BasicInfo onSubmitInfo={handleBasicSubmit} />
+      <div className="form-column">
 
-      <h2> Education  </h2>
+        <h2> Basic Info </h2>
+        <BasicInfo onSubmitInfo={handleBasicSubmit} />
 
-      <form onSubmit={handleSubmitEducation}>
+        <h2> Education  </h2>
 
-        {educations.map((item) => (
-          <EducInfo key={item.id} data={item}
-            onChange={handleEducationChange}
-            onAdd={handleAddEducation} />
+        <form onSubmit={handleSubmitEducation}>
 
-        ))}
+          {educations.map((item) => (
+            <EducInfo key={item.id} data={item}
+              onChange={handleEducationChange}
+              onAdd={handleAddEducation} />
 
-        <button type="button" onClick={handleAddEducation}>
-          Add Education
-        </button>
+          ))}
 
-        <button type="button" onClick={handleSubmitEducation}>
-          Submit
-        </button>
-      </form>
+          <button type="button" onClick={handleAddEducation}>
+            Add Education
+          </button>
+
+          <button type="button" onClick={handleSubmitEducation}>
+            Submit
+          </button>
+        </form>
 
 
-      <h2> Experiences  </h2>
+        <h2> Experiences  </h2>
 
-      <form onSubmit={handleSubmitExperience}>
+        <form onSubmit={handleSubmitExperience}>
 
-        {experiences.map((item) => (
-          <ExpInfo key={item.id} data={item}
-            onChange={handleExperienceChange}
-            onAdd={handleAddExperience} />
+          {experiences.map((item) => (
+            <ExpInfo key={item.id} data={item}
+              onChange={handleExperienceChange}
+              onAdd={handleAddExperience} />
 
-        ))}
+          ))}
 
-        <button type="button" onClick={handleAddExperience}>
-          Add Experience
-        </button>
+          <button type="button" onClick={handleAddExperience}>
+            Add Experience
+          </button>
 
-        <button type="button" onClick={handleSubmitExperience}>
-          Submit
-        </button>
-      </form>
+          <button type="button" onClick={handleSubmitExperience}>
+            Submit
+          </button>
+        </form>
+      </div>
+      <div className="preview-column">
+        <CVPreview
+          basicInfo={basicInfo}
+          educations={educations}
+          experiences={experiences}
+        />
+      </div>
 
     </main>
   )
